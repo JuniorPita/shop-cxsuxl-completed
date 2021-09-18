@@ -19,12 +19,6 @@ let path = {
         img: sourceFolder + "/img/**/*.{jpg,gif,ico,webp}",
         fonts: sourceFolder + "/fonts/*.ttf",
         icons: sourceFolder + "/icons/*.{png,svg}",
-        jsslick: sourceFolder + "/js/slick.min.js",
-        cssslick: sourceFolder + "/css/slick.css",
-        jqueryvalidate: sourceFolder + "/js/jquery.validate.min.js",
-        jquerymaskedinput: sourceFolder + "/js/jquery.maskedinput.min.js",
-        animatecss: sourceFolder + "/css/animate.min.css",
-        wowjs: sourceFolder + "/js/wow.min.js"
     },
     watch : {
         html: sourceFolder + "/**/*.html",
@@ -117,42 +111,6 @@ function js() {
         )
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream());
-}
-
-function cssSlick() {
-    return src(path.src.cssslick)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.css));
-}
-
-function jsSlick() {
-    return src(path.src.jsslick)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.js));
-}
-
-function jqueryValidate() {
-    return src(path.src.jqueryvalidate)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.js));
-}
-
-function jqueryMaskedInput() {
-    return src(path.src.jquerymaskedinput)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.js));
-}
-
-function animateCss() {
-    return src(path.src.animatecss)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.css));
-}
-
-function wowJs() {
-    return src(path.src.wowjs)
-        .pipe(fileinclude())
-        .pipe(dest(path.build.js));
 }
 
 function images() {
@@ -256,15 +214,9 @@ function clean(params) {
     return del(path.clean);
 }
 
-let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts, icons, cssSlick, jsSlick, jqueryValidate, jqueryMaskedInput, animateCss, wowJs));
+let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts, icons));
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
-exports.wowjs = wowJs;
-exports.animatecss = animateCss;
-exports.jquerymaskedinput = jqueryMaskedInput;
-exports.jqueryvalidate = jqueryValidate;
-exports.jsslick = jsSlick;
-exports.cssslick = cssSlick;
 exports.icons = icons;
 exports.fontsStyle = fontsStyle;
 exports.fonts = fonts;
